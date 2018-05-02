@@ -1,0 +1,103 @@
+" ========================================================================
+" Vundle stuff
+" ========================================================================
+set nocompatible                  " Required by vundle
+filetype off                      " Required by vundle
+
+" set the runtime path to include Vundle and initialize
+set rtp+=~/.vim/bundle/Vundle.vim
+call vundle#begin()
+
+" let Vundle manage Vundle, required
+Plugin 'gmarik/Vundle.vim'
+
+" My bundles:
+Plugin 'bling/vim-airline'
+Plugin 'vim-airline/vim-airline-themes'
+Plugin 'kien/ctrlp.vim'
+Plugin 'Raimondi/delimitMate'
+
+" Colors
+Plugin 'nanotech/jellybeans.vim'
+
+" All of your Plugins must be added before the following line
+call vundle#end()           " required
+filetype plugin indent on   " required
+
+" Use the colorscheme from above
+colorscheme jellybeans
+
+" ================
+" Ruby stuff
+" ================
+syntax on                    " Enable syntax highlighting
+filetype plugin indent on    " Enable filetype-specific indenting and plugins
+
+let mapleader = ","
+
+map <C-n> :NERDTreeToggle<CR>
+map <leader>w :w!<cr>
+map <Leader>r :!clear & spring rake<cr>
+map <C-s> <esc>:w<CR>
+imap <C-s> <esc>:w<CR>
+imap § <esc>
+
+" Down is really the next line
+nnoremap j gj
+nnoremap k gk
+
+" Keys for easy navigation between splits, instead of ctrl-w then j,
+" it's just ctrl-j
+nnoremap <C-J> <C-W><C-J>
+nnoremap <C-K> <C-W><C-K>
+nnoremap <C-L> <C-W><C-L>
+nnoremap <C-H> <C-W><C-H>
+
+" Open splits
+nmap vs :vsplit<cr>
+nmap sp :split<cr>
+
+map <Leader>p :set paste<CR>o<esc>"*]p:set nopaste<cr>"
+
+set backspace=indent,eol,start   " Allow backspacing over everything in insert mode
+set history=500                  " Keep 500 lines of command line history
+set ruler                        " Show the cursor position all the time
+set showcmd                      " Display incomplete commands
+set autoindent                   " Copy indent from current line to the new one
+set showmatch                    " Breafly jump to matching brackets
+set nowrap                       " No wrapping lines
+set backupdir=~/.vim/backup      " Change default dir for temp files
+set directory=~/.vim/swap        " Don't clutter my dirs up with swp and tmp files
+set autoread                     " Vim automatically read files that has been changed
+set wmh=0                        " Minimal height of a windows
+set tabstop=2                    " Number of spaces inserted when a tab is pressed
+set shiftwidth=2                 " Blank spaces produced by a TAB
+set expandtab                    " Expand tab whe preset the appropiate number of spaces
+set smarttab                     " When pressing a tab insert blanks
+set noincsearch                  " Show the pattern whe typing a search command
+set ignorecase smartcase         " Search ignoring the characters case
+set laststatus=2                 " Always show status line.
+set relativenumber               " Show line number relative to the line with the cursor in front
+set bg=light
+set shiftround                   " When at 3 spaces and I hit >>, go to 4, not 5.
+
+" Ignore files and folders
+set wildignore+=*/bower_components/*,*/node_modules/*,.DS_Store,*/tmp/*,*/dist/*
+
+" Fuzzy finder: ignore stuff that can't be opened, and generated files
+let g:fuzzy_ignore = "*.png;*.PNG;*.JPG;*.jpg;*.GIF;*.gif;vendor/**;coverage/**;tmp/**;rdoc/**"
+
+" Highlight the status line
+highlight StatusLine ctermfg=blue ctermbg=black
+
+" Recognize *.md files as markdown
+au BufRead,BufNewFile *.md set filetype=markdown
+
+" Enable spellchecking for Markdown
+au FileType markdown setlocal spell
+
+" Automatically wrap at 80 characters for Markdown
+au BufRead,BufNewFile *.md setlocal textwidth=80
+
+" Removing trailing whitespaces on save
+au BufWritePre * :%s/\s\+$//e

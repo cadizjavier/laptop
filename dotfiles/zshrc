@@ -1,0 +1,33 @@
+# Enable completion
+autoload -U compinit
+compinit
+
+# Disable flow control commands (keeps C-s from freezing everything)
+stty start undef
+stty stop undef
+
+# Allow [ or ] whatever you want
+unsetopt nomatch
+
+# Sourcing of other files
+source $HOME/.dotfiles/zsh/aliases
+source $HOME/.dotfiles/zsh/key-bindings
+source $HOME/.dotfiles/zsh/history
+source $HOME/.dotfiles/zsh/functions
+
+# Standardized VISUAL and EDITOR environment variables
+export VISUAL=vim
+export EDITOR="$VISUAL"
+
+# Extra paths
+export PATH=$HOME/bin:/usr/local/bin:$PATH
+export PATH="/usr/local/heroku/bin":$PATH
+export PATH="$HOME/.fastlane/bin:$PATH"
+
+source <(antibody init)
+
+# Loading Plugins
+antibody bundle mafredri/zsh-async
+antibody bundle sindresorhus/pure
+antibody bundle zsh-users/zsh-syntax-highlighting
+antibody bundle rupa/z

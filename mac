@@ -1,0 +1,63 @@
+#!/bin/sh
+
+# Check if Homebrew is installed.
+if ! type "brew" > /dev/null; then
+  echo "🚀 Installing homebrew."
+  /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+
+  echo "🚀 Installing basic formulas."
+  brew install git
+  brew install vim
+  brew install zsh
+  brew install tree
+  brew install mas
+fi
+
+echo "🚀 Updating homebrew."
+brew update
+brew upgrade
+
+echo "🚀 Setup dotfiles."
+
+# Clean dotfiles
+rm -f "$HOME/.gemrc"
+rm -f "$HOME/.gitconfig"
+rm -f "$HOME/.vimrc"
+rm -f "$HOME/.zshrc"
+rm -rf "$HOME/.zsh"
+
+# Link dotfiles
+ln -s "$PWD/dotfiles/gemrc" "$HOME/.gemrc"
+ln -s "$PWD/dotfiles/gitconfig" "$HOME/.gitconfig"
+ln -s "$PWD/dotfiles/vimrc" "$HOME/.vimrc"
+ln -s "$PWD/dotfiles/zshrc" "$HOME/.zshrc"
+ln -s "$PWD/dotfiles/zsh" "$HOME/.zsh"
+
+# Create vim extra folders
+mkdir -p "$HOME/.vim/swap"
+mkdir -p "$HOME/.vim/backup"
+
+# Check if Vundle (VIM dependency manager) is installed
+if [ ! -d "$HOME/.vim/bundle/Vundle.vim" ]; then
+  echo "🚀 Installing Vundle."
+  git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
+fi
+
+# Install all vim depdendencies
+echo "🚀 Updating Vundle."
+vim +PluginInstall +qall
+
+# Check if Antibody (Zsh dependency manager) is installed.
+if ! type "antibody" > /dev/null; then
+  echo "🚀 Installing Antibody."
+  curl -sL git.io/antibody | bash -s
+  antibody bundle
+fi
+
+echo "🚀 Updating Antibody."
+antibody update
+
+# Download terminal custom theme and setup custom configuration
+echo "🚀 Configuring Terminal."
+rm "$HOME/Library/Preferences/com.apple.Terminal.plist"
+ln -s "$PWD/config/com.apple.Terminal.plist" "$HOME/Library/Preferences/com.apple.Terminal.plist"

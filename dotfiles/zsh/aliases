@@ -1,0 +1,25 @@
+# Handle the fact that this file will be used with multiple OSs
+platform=`uname`
+if [[ $platform == 'Linux' ]]; then
+  alias l='ls -lrth --color'
+elif [[ $platform == 'Darwin' ]]; then
+  alias l='ls -lrthG'
+fi
+
+alias ..='cd ..'
+alias ...='cd ../..'
+
+alias aliases='vim ~/.dotfiles/zsh/aliases'
+alias v='vim'
+
+# Git
+alias yolo="git push"
+alias ga="git add"
+alias gaa="git add ."
+alias gc="git commit -m"
+alias gp="git push"
+alias gs="git st"
+alias gl="git lg"
+alias gm="git merge"
+alias gd="git diff"
+alias gloc="git ls-files | xargs wc -l"

@@ -10,7 +10,7 @@
 
 [core]
   editor = vim --noplugin
-	excludesfile = /Users/javiercadiz/.gitignore
+	excludesfile = ~/.gitignore
 [apply]
   whitespace = nowarn
 

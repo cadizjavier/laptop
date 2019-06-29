@@ -10,7 +10,6 @@ if ! type "brew" > /dev/null; then
   brew install vim
   brew install zsh
   brew install tree
-  brew install mas
 fi
 
 echo "🚀 Updating homebrew."
@@ -25,7 +24,6 @@ rm -f "$HOME/.gitconfig"
 rm -f "$HOME/.gitignore"
 rm -f "$HOME/.vimrc"
 rm -f "$HOME/.zshrc"
-rm -rf "$HOME/.zsh"
 
 # Link dotfiles
 ln -s "$PWD/dotfiles/gemrc" "$HOME/.gemrc"
@@ -33,11 +31,15 @@ ln -s "$PWD/dotfiles/gitconfig" "$HOME/.gitconfig"
 ln -s "$PWD/dotfiles/gitignore" "$HOME/.gitignore"
 ln -s "$PWD/dotfiles/vimrc" "$HOME/.vimrc"
 ln -s "$PWD/dotfiles/zshrc" "$HOME/.zshrc"
-ln -s "$PWD/dotfiles/zsh" "$HOME/.zsh"
 
 # Create vim extra folders
 mkdir -p "$HOME/.vim/swap"
 mkdir -p "$HOME/.vim/backup"
+
+# Setyo zsh helpers folder
+rm -rf "$HOME/.dotfiles/zsh"
+mkdir -p "$HOME/.dotfiles"
+cp -R "$PWD/dotfiles/zsh" "$HOME/.dotfiles"
 
 # Check if Vundle (VIM dependency manager) is installed
 if [ ! -d "$HOME/.vim/bundle/Vundle.vim" ]; then
@@ -52,7 +54,7 @@ vim +PluginInstall +qall
 # Check if Antibody (Zsh dependency manager) is installed.
 if ! type "antibody" > /dev/null; then
   echo "🚀 Installing Antibody."
-  curl -sL git.io/antibody | bash -s
+  curl -sfL git.io/antibody | sh -s - -b /usr/local/bin
   antibody bundle
 fi
 

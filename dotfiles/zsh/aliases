@@ -13,6 +13,7 @@ alias aa='vim ~/.laptop/dotfiles/zsh/aliases'
 alias v='vim'
 
 # Git
+alias ll="lazygit"
 alias ga="git add"
 alias gaa="git add ."
 alias gc="git commit -m"

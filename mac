@@ -10,6 +10,7 @@ if ! type "brew" > /dev/null; then
   brew install vim
   brew install zsh
   brew install tree
+  brew install lazygit
 fi
 
 echo "🚀 Updating homebrew."

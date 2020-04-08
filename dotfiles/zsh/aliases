@@ -9,14 +9,14 @@ fi
 alias ..='cd ..'
 alias ...='cd ../..'
 
-alias aliases='vim ~/.dotfiles/zsh/aliases'
+alias aa='vim ~/.laptop/dotfiles/zsh/aliases'
 alias v='vim'
 
 # Git
-alias yolo="git push"
 alias ga="git add"
 alias gaa="git add ."
 alias gc="git commit -m"
+alias gb="git branch -v"
 alias gp="git push"
 alias gs="git st"
 alias gl="git lg"

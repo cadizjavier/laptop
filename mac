@@ -36,11 +36,6 @@ ln -s "$PWD/dotfiles/zshrc" "$HOME/.zshrc"
 mkdir -p "$HOME/.vim/swap"
 mkdir -p "$HOME/.vim/backup"
 
-# Setyo zsh helpers folder
-rm -rf "$HOME/.dotfiles/zsh"
-mkdir -p "$HOME/.dotfiles"
-cp -R "$PWD/dotfiles/zsh" "$HOME/.dotfiles"
-
 # Check if Vundle (VIM dependency manager) is installed
 if [ ! -d "$HOME/.vim/bundle/Vundle.vim" ]; then
   echo "🚀 Installing Vundle."

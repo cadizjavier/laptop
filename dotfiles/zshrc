@@ -10,10 +10,10 @@ stty stop undef
 unsetopt nomatch
 
 # Sourcing of other files
-source $HOME/.dotfiles/zsh/aliases
-source $HOME/.dotfiles/zsh/key-bindings
-source $HOME/.dotfiles/zsh/history
-source $HOME/.dotfiles/zsh/functions
+source $HOME/.laptop/dotfiles/zsh/aliases
+source $HOME/.laptop/dotfiles/zsh/key-bindings
+source $HOME/.laptop/dotfiles/zsh/history
+source $HOME/.laptop/dotfiles/zsh/functions
 
 # Standardized VISUAL and EDITOR environment variables
 export VISUAL=vim

@@ -11,6 +11,7 @@ if ! type "brew" > /dev/null; then
   brew install zsh
   brew install tree
   brew install lazygit
+  brew install rbenv
 fi
 
 echo "🚀 Updating homebrew."

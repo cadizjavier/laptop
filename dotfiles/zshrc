@@ -28,9 +28,11 @@ export PATH="$HOME/.fastlane/bin:$PATH"
 export LC_ALL=en_US.UTF-8
 export LANG=en_US.UTF-8
 
-source <(antibody init)
+# Load rbenv
+eval "$(rbenv init -)"
 
 # Loading Plugins
+source <(antibody init)
 antibody bundle mafredri/zsh-async
 antibody bundle sindresorhus/pure
 antibody bundle zsh-users/zsh-syntax-highlighting

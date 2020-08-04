@@ -23,3 +23,5 @@
   undo = reset --soft HEAD~
 [diff]
   colorMoved = zebra
+[pull]
+	ff = only

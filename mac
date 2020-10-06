@@ -13,6 +13,7 @@ if ! type "brew" > /dev/null; then
   brew install lazygit
   brew install rbenv
   brew install pyenv
+  brew install git-delta
 fi
 
 echo "🚀 Updating homebrew."

@@ -1,16 +1,30 @@
 [user]
   name = Javier Cadiz
   email = cadizjavier@gmail.com
+
 [color]
   diff = auto
   status = auto
   branch = auto
+
 [color "diff"]
   meta = yellow
 
 [core]
   editor = vim --noplugin
-	excludesfile = ~/.gitignore
+  excludesfile = ~/.gitignore
+  pager = delta
+
+[delta]
+  plus-color = "#012800"
+  minus-color = "#340001"
+  syntax-theme = Monokai Extended
+  features = side-by-side line-numbers decorations
+  whitespace-error-style = 22 reverse
+
+[interactive]
+  diffFilter = delta --color-only
+
 [apply]
   whitespace = nowarn
 
@@ -21,7 +35,6 @@
   co = checkout
   mg = merge --no-ff
   undo = reset --soft HEAD~
-[diff]
-  colorMoved = zebra
+
 [pull]
-	ff = only
+  ff = only

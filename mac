@@ -16,12 +16,12 @@ echo "🔨 Check for packages installation."
 # MacOS comes with vim, zsh and git.
 # Since every version of git comes with a lot of features we are upgrading it from the system one
 install_package '/usr/local/bin/git' 'brew install git'
+install_package 'antigen' 'brew install antigen'
 install_package 'tree' 'brew install tree'
 install_package 'lazygit' 'brew install lazygit'
 install_package 'rbenv' 'brew install rbenv'
 install_package 'delta' 'brew install git-delta'
 install_package 'bat' 'brew install bat'
-install_package 'youtube-dl' 'brew install youtube-dl'
 
 echo "🔨 Updating homebrew."
 brew update

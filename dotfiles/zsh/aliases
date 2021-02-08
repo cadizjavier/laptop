@@ -2,22 +2,21 @@
 alias ..='cd ..'
 alias ...='cd ../..'
 
-alias l="t"
-alias ls='ls -lrthG'
+alias l='ls -lrthG'
 
 alias aa='vim ~/.laptop/dotfiles/zsh/aliases'
 alias v='vim'
-alias cat="bat"
+alias cat='bat'
 
 # Git
-alias ll="lazygit"
-alias ga="git add"
-alias gaa="git add ."
-alias gc="git commit -m"
-alias gb="git branch -v"
-alias gp="git push"
-alias gs="git st"
-alias gl="git lg"
-alias gm="git merge"
-alias gd="git diff"
-alias gloc="git ls-files | xargs wc -l"
+alias ll='lazygit'
+alias ga='git add'
+alias gaa='git add .'
+alias gc='git commit -m'
+alias gb='git branch -v'
+alias gp='git push'
+alias gs='git st'
+alias gl='git lg'
+alias gm='git merge'
+alias gd='git diff'
+alias gloc='git ls-files | xargs wc -l'

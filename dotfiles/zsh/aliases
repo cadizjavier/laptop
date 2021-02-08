@@ -1,16 +1,13 @@
-# Handle the fact that this file will be used with multiple OSs
-platform=`uname`
-if [[ $platform == 'Linux' ]]; then
-  alias l='ls -lrth --color'
-elif [[ $platform == 'Darwin' ]]; then
-  alias l='ls -lrthG'
-fi
-
+# General
 alias ..='cd ..'
 alias ...='cd ../..'
 
+alias l="t"
+alias ls='ls -lrthG'
+
 alias aa='vim ~/.laptop/dotfiles/zsh/aliases'
 alias v='vim'
+alias cat="bat"
 
 # Git
 alias ll="lazygit"

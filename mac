@@ -1,44 +1,45 @@
 #!/bin/sh
 
-# Check if Homebrew is installed.
-if ! type "brew" > /dev/null; then
-  echo "🚀 Installing homebrew."
-  /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+# Functions definition
+install_package () {
+  if ! command -v $1 &> /dev/null
+  then
+    echo "🚀 Installing $1."
+    $2
+  fi
+}
 
-  echo "🚀 Installing basic formulas."
-  brew install git
-  brew install vim
-  brew install zsh
-  brew install tree
-  brew install lazygit
-  brew install rbenv
-  brew install pyenv
-  brew install git-delta
-fi
+# Install homebrew
+install_package 'brew' '/usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"'
 
-echo "🚀 Updating homebrew."
+echo "🔨 Check for packages installation."
+# MacOS comes with vim, zsh and git.
+# Since every version of git comes with a lot of features we are upgrading it from the system one
+install_package '/usr/local/bin/git' 'brew install git'
+install_package 'tree' 'brew install tree'
+install_package 'lazygit' 'brew install lazygit'
+install_package 'rbenv' 'brew install rbenv'
+install_package 'delta' 'brew install git-delta'
+install_package 'bat' 'brew install bat'
+install_package 'youtube-dl' 'brew install youtube-dl'
+
+echo "🔨 Updating homebrew."
 brew update
 brew upgrade
 
-echo "🚀 Setup dotfiles."
-
+echo "🔨 Setup dotfiles."
 # Clean dotfiles
 rm -f "$HOME/.gemrc"
 rm -f "$HOME/.gitconfig"
 rm -f "$HOME/.gitignore"
 rm -f "$HOME/.vimrc"
 rm -f "$HOME/.zshrc"
-
 # Link dotfiles
 ln -s "$PWD/dotfiles/gemrc" "$HOME/.gemrc"
 ln -s "$PWD/dotfiles/gitconfig" "$HOME/.gitconfig"
 ln -s "$PWD/dotfiles/gitignore" "$HOME/.gitignore"
 ln -s "$PWD/dotfiles/vimrc" "$HOME/.vimrc"
 ln -s "$PWD/dotfiles/zshrc" "$HOME/.zshrc"
-
-# Create vim extra folders
-mkdir -p "$HOME/.vim/swap"
-mkdir -p "$HOME/.vim/backup"
 
 # Check if Vundle (VIM dependency manager) is installed
 if [ ! -d "$HOME/.vim/bundle/Vundle.vim" ]; then
@@ -47,20 +48,10 @@ if [ ! -d "$HOME/.vim/bundle/Vundle.vim" ]; then
 fi
 
 # Install all vim depdendencies
-echo "🚀 Updating Vundle."
+echo "🔨 Updating Vundle."
 vim +PluginInstall +qall
 
-# Check if Antibody (Zsh dependency manager) is installed.
-if ! type "antibody" > /dev/null; then
-  echo "🚀 Installing Antibody."
-  curl -sfL git.io/antibody | sh -s - -b /usr/local/bin
-  antibody bundle
-fi
-
-echo "🚀 Updating Antibody."
-antibody update
-
 # Download terminal custom theme and setup custom configuration
-echo "🚀 Configuring Terminal."
+echo "🔨 Configuring Terminal."
 rm "$HOME/Library/Preferences/com.apple.Terminal.plist"
 ln -s "$PWD/config/com.apple.Terminal.plist" "$HOME/Library/Preferences/com.apple.Terminal.plist"

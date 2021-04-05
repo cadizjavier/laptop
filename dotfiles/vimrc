@@ -14,8 +14,6 @@ Plugin 'gmarik/Vundle.vim'
 " My bundles:
 Plugin 'bling/vim-airline'
 Plugin 'vim-airline/vim-airline-themes'
-Plugin 'kien/ctrlp.vim'
-Plugin 'Raimondi/delimitMate'
 
 " Colors
 Plugin 'nanotech/jellybeans.vim'
@@ -35,9 +33,7 @@ filetype plugin indent on    " Enable filetype-specific indenting and plugins
 
 let mapleader = ","
 
-map <C-n> :NERDTreeToggle<CR>
 map <leader>w :w!<cr>
-map <Leader>r :!clear & spring rake<cr>
 map <C-s> <esc>:w<CR>
 imap <C-s> <esc>:w<CR>
 imap § <esc>
@@ -56,8 +52,6 @@ nnoremap <C-H> <C-W><C-H>
 " Open splits
 nmap vs :vsplit<cr>
 nmap sp :split<cr>
-
-map <Leader>p :set paste<CR>o<esc>"*]p:set nopaste<cr>"
 
 set backspace=indent,eol,start   " Allow backspacing over everything in insert mode
 set history=500                  " Keep 500 lines of command line history
@@ -81,18 +75,13 @@ set relativenumber               " Show line number relative to the line with th
 set bg=light
 set shiftround                   " When at 3 spaces and I hit >>, go to 4, not 5.
 
-" Ignore files and folders
-set wildignore+=*/bower_components/*,*/node_modules/*,.DS_Store,*/tmp/*,*/dist/*
-
-" Fuzzy finder: ignore stuff that can't be opened, and generated files
-let g:fuzzy_ignore = "*.png;*.PNG;*.JPG;*.jpg;*.GIF;*.gif;vendor/**;coverage/**;tmp/**;rdoc/**"
-
 " Highlight the status line
 highlight StatusLine ctermfg=blue ctermbg=black
 
 " Recognize *.md files as markdown
 au BufRead,BufNewFile *.md set filetype=markdown
 
+nmap sp :split<cr>
 " Enable spellchecking for Markdown
 au FileType markdown setlocal spell
 
@@ -101,3 +90,6 @@ au BufRead,BufNewFile *.md setlocal textwidth=80
 
 " Removing trailing whitespaces on save
 au BufWritePre * :%s/\s\+$//e
+
+map <leader>d :r! date "+\%Y-\%m-\%d \%H:\%M"<cr>
+

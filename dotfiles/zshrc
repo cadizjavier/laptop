@@ -8,8 +8,8 @@ antigen bundle zsh-users/zsh-autosuggestions
 antigen apply
 
 # Enable completion
-autoload -U compinit
-compinit
+autoload -U promptinit; promptinit
+prompt pure
 
 # Disable flow control commands (keeps C-s from freezing everything)
 stty start undef

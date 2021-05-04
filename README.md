@@ -8,6 +8,11 @@ Laptop is a script to set up an macOS computer development, and to keep it up to
  - `cd ~/.laptop`
  - `source mac`
 
+### Extra manual steps
+
+- To get proper terminal colors you need to install manually the
+  (Snazzy)[https://github.com/sindresorhus/terminal-snazzy] terminal theme.
+
 ### What it sets up
 
  - Homebrew for managing operating system libraries.

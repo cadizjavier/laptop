@@ -55,3 +55,7 @@ vim +PluginInstall +qall
 echo "🔨 Configuring Terminal."
 rm "$HOME/Library/Preferences/com.apple.Terminal.plist"
 ln -s "$PWD/config/com.apple.Terminal.plist" "$HOME/Library/Preferences/com.apple.Terminal.plist"
+
+# Create VIM swap and backup folders
+mkdir -p ~/.vim/backup
+mkdir -p ~/.vim/swap

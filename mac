@@ -22,6 +22,8 @@ install_package 'lazygit' 'brew install lazygit'
 install_package 'rbenv' 'brew install rbenv'
 install_package 'delta' 'brew install git-delta'
 install_package 'bat' 'brew install bat'
+install_package 'fx' 'brew install fx' # CLI JSON parser
+install_package 'fzf' 'brew install fzf' # CLI fuzzy finder
 
 echo "🔨 Updating homebrew."
 brew update

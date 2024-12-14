@@ -10,3 +10,18 @@ function t() {
   # pass additional args after
   tree -I '.git|node_modules|bower_components|.DS_Store' --dirsfirst --filelimit 15 -L ${1:-3} -aC $2
 }
+
+# Reference https://medium.com/@chantastic/p-525e68f17e56
+p() {
+  if [[ -f bun.lockb ]]; then
+    command bun "$@"
+  elif [[ -f pnpm-lock.yaml ]]; then
+    command pnpm "$@"
+  elif [[ -f yarn.lock ]]; then
+    command yarn "$@"
+  elif [[ -f package-lock.json ]]; then
+    command npm "$@"
+  else
+    command pnpm "$@"
+  fi
+}

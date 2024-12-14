@@ -37,3 +37,4 @@ export LANG=en_US.UTF-8
 
 # Load rbenv
 eval "$(rbenv init -)"
+export PATH="/opt/homebrew/opt/libpq/bin:$PATH"

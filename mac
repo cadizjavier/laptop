@@ -1,63 +1,61 @@
 #!/bin/sh
 
-# Functions definition
-install_package () {
-  if ! command -v $1 &> /dev/null
+# Install brew package helper
+install_brew_package () {
+  if ! brew list | grep -q "$1" >/dev/null 2>&1
   then
     echo "🚀 Installing $1."
-    $2
+    brew install "${2:-$1}" # If a second argument is provided, use it as the package name
+    echo "✓ $1 is installed."
+  else
+    echo "✓ $1 is already installed."
   fi
 }
 
-# Install homebrew
-install_package 'brew' '/usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"'
+# Check if Homebrew is installed, then install if it isn't
+if ! command -v brew >/dev/null 2>&1; then
+    echo "🚀 Installing Homebrew..."
+    /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+    echo "✓ Homebrew is installed."
+else
+    echo "✓ Homebrew is already installed."
+fi
 
-echo "🔨 Check for packages installation."
-# MacOS comes with vim, zsh and git.
-# Since every version of git comes with a lot of features we are upgrading it from the system one
-install_package '/usr/local/bin/git' 'brew install git'
-install_package 'antigen' 'brew install antigen'
-install_package 'tree' 'brew install tree'
-install_package 'lazygit' 'brew install lazygit'
-install_package 'rbenv' 'brew install rbenv'
-install_package 'delta' 'brew install git-delta'
-install_package 'bat' 'brew install bat'
-install_package 'fx' 'brew install fx' # CLI JSON parser
-install_package 'fzf' 'brew install fzf' # CLI fuzzy finder
+# Install packages
+echo "📝 Check for packages installation."
+install_brew_package 'git'
+install_brew_package 'antidote'
+install_brew_package 'lazygit' 'jesseduffield/lazygit/lazygit'
+install_brew_package 'rbenv'
+install_brew_package 'delta'
+install_brew_package 'bat'
 
-echo "🔨 Updating homebrew."
+echo "🔄 Updating homebrew."
 brew update
 brew upgrade
 
-echo "🔨 Setup dotfiles."
-# Clean dotfiles
+# Clean and link dotfiles
 rm -f "$HOME/.gemrc"
 rm -f "$HOME/.gitconfig"
 rm -f "$HOME/.gitignore"
 rm -f "$HOME/.vimrc"
 rm -f "$HOME/.zshrc"
-# Link dotfiles
+rm -f "$HOME/.zsh_plugins.txt"
 ln -s "$PWD/dotfiles/gemrc" "$HOME/.gemrc"
 ln -s "$PWD/dotfiles/gitconfig" "$HOME/.gitconfig"
 ln -s "$PWD/dotfiles/gitignore" "$HOME/.gitignore"
 ln -s "$PWD/dotfiles/vimrc" "$HOME/.vimrc"
 ln -s "$PWD/dotfiles/zshrc" "$HOME/.zshrc"
+ln -s "$PWD/dotfiles/zsh_plugins" "$HOME/.zsh_plugins.txt"
+echo "🗂️ Dotfiles linked."
 
-# Check if Vundle (VIM dependency manager) is installed
-if [ ! -d "$HOME/.vim/bundle/Vundle.vim" ]; then
-  echo "🚀 Installing Vundle."
-  git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
-fi
+# Config Ghostty
+GHOSTTY_CONFIG_DIR="$HOME/Library/Application Support/com.mitchellh.ghostty"
+mkdir -p "$GHOSTTY_CONFIG_DIR"
+rm -f "$GHOSTTY_CONFIG_DIR/config"
+ln -s "$PWD/config/ghostty" "$GHOSTTY_CONFIG_DIR/config"
+echo "✓ Ghostty configuration linked."
 
-# Install all vim depdendencies
-echo "🔨 Updating Vundle."
-vim +PluginInstall +qall
-
-# Download terminal custom theme and setup custom configuration
-echo "🔨 Configuring Terminal."
-rm "$HOME/Library/Preferences/com.apple.Terminal.plist"
-ln -s "$PWD/config/com.apple.Terminal.plist" "$HOME/Library/Preferences/com.apple.Terminal.plist"
-
-# Create VIM swap and backup folders
-mkdir -p ~/.vim/backup
-mkdir -p ~/.vim/swap
+# Reload shell
+echo "🔄 Reloading shell..."
+exec zsh

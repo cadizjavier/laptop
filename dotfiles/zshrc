@@ -1,11 +1,6 @@
-# Check for antigen dependencies first
-source /opt/homebrew/share/antigen/antigen.zsh
-antigen bundle mafredri/zsh-async # Required for pure
-antigen bundle sindresorhus/pure --branch=main
-antigen bundle zsh-users/zsh-syntax-highlighting
-antigen bundle rupa/z
-antigen bundle zsh-users/zsh-autosuggestions
-antigen apply
+# Load antidote from brew installation
+source $(brew --prefix)/opt/antidote/share/antidote/antidote.zsh
+antidote load
 
 # Enable completion
 autoload -U promptinit; promptinit
@@ -18,11 +13,24 @@ stty stop undef
 # Allow [ or ] whatever you want
 unsetopt nomatch
 
-# Sourcing of other files
-source $HOME/.laptop/dotfiles/zsh/aliases
-source $HOME/.laptop/dotfiles/zsh/key-bindings
-source $HOME/.laptop/dotfiles/zsh/history
-source $HOME/.laptop/dotfiles/zsh/functions
+## Command history configuration
+# Set history file location if not already set
+if [ -z "$HISTFILE" ]; then
+  HISTFILE="$HOME/.zsh_history"
+fi
+
+# Configure history size limits
+HISTSIZE=50000
+SAVEHIST=50000
+
+# History options
+setopt extended_history        # Record timestamp and duration of commands
+setopt hist_expire_dups_first  # Delete duplicates first when HISTFILE size exceeds HISTSIZE
+setopt hist_ignore_dups        # Don't record duplicated commands
+setopt hist_ignore_space       # Don't record commands starting with a space
+setopt hist_verify             # Show command with history expansion before running it
+setopt inc_append_history      # Add commands to HISTFILE in order of execution
+setopt share_history           # Share command history between sessions
 
 # Standardized VISUAL and EDITOR environment variables
 export VISUAL=vim
@@ -35,6 +43,18 @@ export PATH=$HOME/bin:/usr/local/bin:$PATH
 export LC_ALL=en_US.UTF-8
 export LANG=en_US.UTF-8
 
+# Sourcing of other files
+source $HOME/.laptop/dotfiles/zsh/aliases
+source $HOME/.laptop/dotfiles/zsh/functions
+
 # Load rbenv
 eval "$(rbenv init -)"
-export PATH="/opt/homebrew/opt/libpq/bin:$PATH"
+
+# Configure ssh to avoid typing passphrase every single time
+# Modern MacOS manages ssh-agent start automatically
+mkdir -p $HOME/.ssh
+cat > $HOME/.ssh/config << 'EOL'
+Host *
+    AddKeysToAgent yes
+    UseKeychain yes
+EOL

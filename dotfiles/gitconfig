@@ -2,6 +2,9 @@
   name = Javier Cadiz
   email = cadizjavier@gmail.com
 
+[init]
+	defaultBranch = main
+
 [color]
   diff = auto
   status = auto
@@ -27,14 +30,11 @@
   whitespace = nowarn
 
 [alias]
-  lg = log --graph --abbrev-commit --decorate --date=relative --format=format:'%C(bold blue)%h%C(reset) - %C(bold green)(%ar)%C(reset) %C(white)%s%C(reset) %C(dim white)- %an%C(reset)%C(bold yellow)%d%C(reset)'
-  lgf = log --graph --abbrev-commit --decorate --date=relative --format=format:'%C(bold blue)%h%C(reset) - %C(bold green)(%ar)%C(reset) %C(white)%s%C(reset) %C(dim white)- %an%C(reset)%C(bold yellow)%d%C(reset)' --all
-  st = status -s
   co = checkout
   mg = merge --no-ff
-  undo = reset --soft HEAD~
 
 [pull]
   ff = only
-[init]
-	defaultBranch = main
+
+[push]
+	autoSetupRemote = true

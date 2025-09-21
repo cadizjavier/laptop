@@ -2,9 +2,10 @@
 # Show available themes: `ghostty +list-themes`
 # Available config options: `ghostty +show-config --default --docs`
 
-font-size = 16
+font-size = 18
 window-height = 30
 window-width = 110
 
 # theme = 0x96f
 theme = Jellybeans
+keybind = shift+enter=text:\n

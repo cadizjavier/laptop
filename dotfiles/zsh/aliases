@@ -1,6 +1,7 @@
 # General
 alias ..='cd ..'
 alias ...='cd ../..'
+alias reload='source ~/.zshrc'
 
 alias l='ls -lrthG'
 
@@ -20,3 +21,6 @@ alias gl="git log --graph --abbrev-commit --decorate --date=relative --format=fo
 alias gm='git merge'
 alias gd='git diff'
 alias gloc='git ls-files | xargs wc -l'
+
+# Vibe coding
+alias yolo='claude --dangerously-skip-permissions'

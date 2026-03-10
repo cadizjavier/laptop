@@ -1,17 +1,5 @@
 #!/bin/sh
 
-# Install brew package helper
-install_brew_package () {
-  if ! brew list | grep -q "$1" >/dev/null 2>&1
-  then
-    echo "🚀 Installing $1."
-    brew install "${2:-$1}" # If a second argument is provided, use it as the package name
-    echo "✓ $1 is installed."
-  else
-    echo "✓ $1 is already installed."
-  fi
-}
-
 # Check if Homebrew is installed, then install if it isn't
 if ! command -v brew >/dev/null 2>&1; then
     echo "🚀 Installing Homebrew..."
@@ -21,14 +9,10 @@ else
     echo "✓ Homebrew is already installed."
 fi
 
-# Install packages
-echo "📝 Check for packages installation."
-install_brew_package 'git'
-install_brew_package 'antidote'
-install_brew_package 'lazygit' 'jesseduffield/lazygit/lazygit'
-install_brew_package 'rbenv'
-install_brew_package 'delta'
-install_brew_package 'bat'
+# Install packages from Brewfile
+echo "📝 Installing packages from Brewfile."
+brew bundle --file="$PWD/Brewfile"
+echo "✓ Packages installed."
 
 echo "🔄 Updating homebrew."
 brew update
@@ -48,6 +32,20 @@ ln -s "$PWD/dotfiles/vimrc" "$HOME/.vimrc"
 ln -s "$PWD/dotfiles/zshrc" "$HOME/.zshrc"
 ln -s "$PWD/dotfiles/zsh_plugins" "$HOME/.zsh_plugins.txt"
 echo "🗂️ Dotfiles linked."
+
+# Configure ssh to avoid typing passphrase every single time
+# Modern MacOS manages ssh-agent start automatically
+mkdir -p "$HOME/.ssh"
+if [ ! -f "$HOME/.ssh/config" ]; then
+  cat > "$HOME/.ssh/config" << 'EOL'
+Host *
+    AddKeysToAgent yes
+    UseKeychain yes
+EOL
+  echo "✓ SSH config created."
+else
+  echo "✓ SSH config already exists."
+fi
 
 # Config Ghostty
 GHOSTTY_CONFIG_DIR="$HOME/Library/Application Support/com.mitchellh.ghostty"

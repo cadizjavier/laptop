@@ -2,9 +2,6 @@
 source $(brew --prefix)/opt/antidote/share/antidote/antidote.zsh
 antidote load
 
-# Enable completion
-autoload -U promptinit; promptinit
-prompt pure
 
 # Disable flow control commands (keeps C-s from freezing everything)
 stty start undef
@@ -50,11 +47,12 @@ source $HOME/.laptop/dotfiles/zsh/functions
 # Load rbenv
 eval "$(rbenv init -)"
 
-# Configure ssh to avoid typing passphrase every single time
-# Modern MacOS manages ssh-agent start automatically
-mkdir -p $HOME/.ssh
-cat > $HOME/.ssh/config << 'EOL'
-Host *
-    AddKeysToAgent yes
-    UseKeychain yes
-EOL
+export PATH="$HOME/.local/bin:$PATH"
+eval "$(mise activate zsh)"
+
+# Elixir Phoenix config
+export PATH=$HOME/.local/share/mise/installs/erlang/28.3/erts-16.2/bin:$PATH
+export PATH=$HOME/.local/share/mise/installs/elixir/1.19.4-otp-28/bin:$PATH
+
+# opencode
+export PATH=/Users/javier/.opencode/bin:$PATH

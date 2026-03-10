@@ -24,3 +24,4 @@ alias gloc='git ls-files | xargs wc -l'
 
 # Vibe coding
 alias yolo='claude --dangerously-skip-permissions'
+alias cdx='codex --yolo'

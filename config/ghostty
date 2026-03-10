@@ -5,7 +5,4 @@
 font-size = 18
 window-height = 30
 window-width = 110
-
-# theme = 0x96f
 theme = Jellybeans
-keybind = shift+enter=text:\n

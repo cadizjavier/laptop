@@ -1,5 +1,7 @@
 sindresorhus/pure
 
-zsh-users/zsh-syntax-highlighting
 zsh-users/zsh-autosuggestions
 marlonrichert/zsh-autocomplete
+
+# Must be last; it hooks ZLE widgets and breaks when later plugins replace them.
+zsh-users/zsh-syntax-highlighting

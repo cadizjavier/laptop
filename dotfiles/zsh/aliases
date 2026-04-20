@@ -1,7 +1,7 @@
 # General
 alias ..='cd ..'
 alias ...='cd ../..'
-alias reload='source ~/.zshrc'
+alias reload='exec zsh'
 
 alias l='ls -lrthG'
 

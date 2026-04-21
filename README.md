@@ -4,15 +4,23 @@ Laptop is a script to set up macOS for development, and to keep it up to date.
 
 ### Install
 
- - `git clone git://github.com/cadizjavier/laptop ~/.laptop`
+ - `git clone https://github.com/cadizjavier/laptop ~/.laptop`
  - `cd ~/.laptop`
- - `source mac`
+ - `./mac`
 
 ### What it sets up
 
  - Homebrew for managing operating system libraries.
  - [Antidote](https://github.com/mattmc3/antidote) for managing zsh dependencies.
  - Zsh [pure](https://github.com/sindresorhus/pure) prompt.
+
+### Zsh plugin updates
+
+Zsh plugins are declared in `dotfiles/zsh_plugins`.
+
+To update them:
+
+`zsh -ic 'antidote update'`
 
  ### Manual installations
  > TODO: Configure those through brew cask

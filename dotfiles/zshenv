@@ -1,0 +1,17 @@
+# Shared environment for all zsh invocations. Keep this file quiet.
+
+typeset -U path PATH
+
+export VISUAL="vim"
+export EDITOR="$VISUAL"
+export LANG="en_US.UTF-8"
+
+path=(
+  "$HOME/.opencode/bin"
+  "$HOME/.local/bin"
+  "$HOME/.rbenv/shims"
+  "$HOME/.rbenv/bin"
+  "$HOME/bin"
+  /usr/local/bin
+  $path
+)

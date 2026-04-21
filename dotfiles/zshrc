@@ -8,8 +8,13 @@ else
 fi
 antidote load
 
-# Keep PATH unique while preserving the first occurrence of each entry.
-typeset -U path PATH
+autoload -Uz promptinit
+promptinit
+
+zstyle ':autocomplete:*' min-input 3
+zstyle ':autocomplete:*' ignored-input '..##'
+
+prompt pure
 
 # Disable flow control commands (keeps C-s from freezing everything).
 if [[ -o interactive && -t 0 ]]; then
@@ -37,21 +42,6 @@ setopt hist_verify             # Show command with history expansion before runn
 setopt inc_append_history      # Add commands to HISTFILE in order of execution
 setopt share_history           # Share command history between sessions
 
-# Standardized VISUAL and EDITOR environment variables
-export VISUAL="vim"
-export EDITOR="$VISUAL"
-
-# Extra paths
-path=(
-  "$HOME/bin"
-  /usr/local/bin
-  $path
-)
-
-# Set UTF-8 locale
-export LC_ALL=en_US.UTF-8
-export LANG=en_US.UTF-8
-
 # Sourcing of other files
 source "$HOME/.laptop/dotfiles/zsh/aliases"
 source "$HOME/.laptop/dotfiles/zsh/functions"
@@ -59,14 +49,4 @@ source "$HOME/.laptop/dotfiles/zsh/functions"
 # Load rbenv
 eval "$(rbenv init - zsh)"
 
-path=(
-  "$HOME/.local/bin"
-  $path
-)
 eval "$(mise activate zsh)"
-
-# opencode
-path=(
-  "$HOME/.opencode/bin"
-  $path
-)

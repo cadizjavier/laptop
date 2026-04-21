@@ -1,5 +1,13 @@
 #!/bin/sh
 
+set -eu
+
+ROOT="$(cd -- "$(dirname -- "$0")" && pwd)"
+
+link_file() {
+  ln -snf "$1" "$2"
+}
+
 # Check if Homebrew is installed, then install if it isn't
 if ! command -v brew >/dev/null 2>&1; then
     echo "🚀 Installing Homebrew..."
@@ -11,7 +19,7 @@ fi
 
 # Install packages from Brewfile
 echo "📝 Installing packages from Brewfile."
-brew bundle --file="$PWD/Brewfile"
+brew bundle --file="$ROOT/Brewfile"
 echo "✓ Packages installed."
 
 echo "🔄 Updating homebrew."
@@ -19,18 +27,13 @@ brew update
 brew upgrade
 
 # Clean and link dotfiles
-rm -f "$HOME/.gemrc"
-rm -f "$HOME/.gitconfig"
-rm -f "$HOME/.gitignore"
-rm -f "$HOME/.vimrc"
-rm -f "$HOME/.zshrc"
-rm -f "$HOME/.zsh_plugins.txt"
-ln -s "$PWD/dotfiles/gemrc" "$HOME/.gemrc"
-ln -s "$PWD/dotfiles/gitconfig" "$HOME/.gitconfig"
-ln -s "$PWD/dotfiles/gitignore" "$HOME/.gitignore"
-ln -s "$PWD/dotfiles/vimrc" "$HOME/.vimrc"
-ln -s "$PWD/dotfiles/zshrc" "$HOME/.zshrc"
-ln -s "$PWD/dotfiles/zsh_plugins" "$HOME/.zsh_plugins.txt"
+link_file "$ROOT/dotfiles/gemrc" "$HOME/.gemrc"
+link_file "$ROOT/dotfiles/gitconfig" "$HOME/.gitconfig"
+link_file "$ROOT/dotfiles/gitignore" "$HOME/.gitignore"
+link_file "$ROOT/dotfiles/vimrc" "$HOME/.vimrc"
+link_file "$ROOT/dotfiles/zshenv" "$HOME/.zshenv"
+link_file "$ROOT/dotfiles/zshrc" "$HOME/.zshrc"
+link_file "$ROOT/dotfiles/zsh_plugins" "$HOME/.zsh_plugins.txt"
 echo "🗂️ Dotfiles linked."
 
 # Configure ssh to avoid typing passphrase every single time
@@ -51,7 +54,7 @@ fi
 GHOSTTY_CONFIG_DIR="$HOME/Library/Application Support/com.mitchellh.ghostty"
 mkdir -p "$GHOSTTY_CONFIG_DIR"
 rm -f "$GHOSTTY_CONFIG_DIR/config"
-ln -s "$PWD/config/ghostty" "$GHOSTTY_CONFIG_DIR/config"
+link_file "$ROOT/config/ghostty" "$GHOSTTY_CONFIG_DIR/config"
 echo "✓ Ghostty configuration linked."
 
 # Reload shell

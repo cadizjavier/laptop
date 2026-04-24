@@ -57,6 +57,11 @@ rm -f "$GHOSTTY_CONFIG_DIR/config"
 link_file "$ROOT/config/ghostty" "$GHOSTTY_CONFIG_DIR/config"
 echo "✓ Ghostty configuration linked."
 
+command -v bun >/dev/null 2>&1 || curl -fsSL https://bun.sh/install | bash
+# Make bun available in this session if it was just installed
+[ -s "$HOME/.bun/bin/bun" ] && export PATH="$HOME/.bun/bin:$PATH"
+command -v opencode >/dev/null 2>&1 || bunx oh-my-opencode-slim@latest install
+
 # Reload shell
 echo "🔄 Reloading shell..."
 exec zsh

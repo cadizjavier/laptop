@@ -6,11 +6,15 @@ export VISUAL="vim"
 export EDITOR="$VISUAL"
 export LANG="en_US.UTF-8"
 
+export BAT_THEME="Monokai Extended"
+
+export FZF_DEFAULT_OPTS="--layout=reverse --border=rounded --height=40% --info=inline"
+export FZF_DEFAULT_COMMAND="fd --type f --hidden --follow --exclude .git"
+export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
+
 path=(
   "$HOME/.opencode/bin"
   "$HOME/.local/bin"
-  "$HOME/.rbenv/shims"
-  "$HOME/.rbenv/bin"
   "$HOME/bin"
   /usr/local/bin
   $path

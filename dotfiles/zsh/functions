@@ -5,7 +5,7 @@ function zsh_stats() {
 
 # Reference https://medium.com/@chantastic/p-525e68f17e56
 p() {
-  if [[ -f bun.lockb ]]; then
+  if [[ -f bun.lock || -f bun.lockb ]]; then
     command bun "$@"
   elif [[ -f pnpm-lock.yaml ]]; then
     command pnpm "$@"

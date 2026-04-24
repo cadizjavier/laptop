@@ -1,7 +1,9 @@
 sindresorhus/pure kind:fpath
 
+# Must be loaded after compinit but before plugins that wrap widgets.
+Aloxaf/fzf-tab
+
 zsh-users/zsh-autosuggestions
-marlonrichert/zsh-autocomplete
 
 # Must be last; it hooks ZLE widgets and breaks when later plugins replace them.
-zsh-users/zsh-syntax-highlighting
+zdharma-continuum/fast-syntax-highlighting
